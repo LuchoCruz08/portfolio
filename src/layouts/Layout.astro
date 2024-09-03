@@ -1,0 +1,231 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+import { Image } from "astro:assets";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Github, Linkedin, Mail, ExternalLink } from "lucide-astro";
+
+const projects = [
+  {
+    title: "JobTrack",
+    description: "I developed a web application to streamline job search management, currently with 25 registered users. It includes features for user registration, login, and job application management (add, view, edit, delete). Applications can be sorted by date and categorized by status. The app also provides graphics for users to view their application information. To try out JobTrack without creating an account, use the following credentials: Email: jobtrack3@gmail.com, Password: jobtrack123.",
+    image: "/JobTrack.webp",
+    technologies: ["JavaScript", "Next.js", "Tailwind CSS", "Supabase"],
+    github: "https://github.com/LuchoCruz08/jobtrack",
+    live: "https://jobtrack-eight.vercel.app/",
+  },
+  {
+    title: "ReMenu",
+    description: "I developed a web application that facilitates menu digitalization. It includes user registration, login, and features to manage menu products (add, view, edit, delete). The app also generates a unique link and QR code for customers to access the digital menu. To try out ReMenu without creating an account, use the following credentials: Email: jobtrack3@gmail.com, Password: remenu123.",
+    image: "/ReMenu.webp",
+    technologies: ["JavaScript", "Next.js", "Tailwind CSS", "Supabase"],
+    github: null,
+    live: "https://remenu.vercel.app/",
+  },
+  {
+    title: "Banking App",
+    description: "I developed software that simulates basic virtual wallet functionalities. It includes user registration, login with JWT-based authentication, and features for depositing and withdrawing money. Users can also view a list of all transactions.",
+    image: "/Banking.webp",
+    technologies: ["Java", "Spring Boot", "Spring Security", "TypeScript", "Next.js", "Tailwind CSS", "MySQL"],
+    github: "https://github.com/LuchoCruz08/banking-app",
+    live: null,
+  },
+];
+
+const skills = [
+  "HMTL", "CSS", "Tailwind CSS", "JavaScript", "TypeScript", "React", "Next.js", "Astro", 
+  "Java", "Spring Boot", "Python", "Django", "FastAPI", "SQL", "Supabase", "Git",
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body
+    class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-gray-100"
+  >
+    <header class="sticky top-0 z-10 backdrop-blur-md bg-gray-900/50">
+      <nav class="container mx-auto px-6 py-4">
+        <ul class="flex justify-center space-x-6">
+          {
+            ["About", "Projects", "Skills"].map((item) => (
+              <li>
+                <a
+                  href={`#${item.toLowerCase()}`}
+                  class="hover:text-blue-400 transition-colors duration-300"
+                >
+                  {item}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 space-y-24">
+      <section id="about" class="scroll-mt-16">
+        <Card className="bg-gray-800 border-gray-700 overflow-hidden">
+          <CardContent className="p-6">
+            <div
+              class="flex flex-col md:flex-row items-center md:items-start gap-6"
+            >
+              <Image
+                src="/placeholder.svg"
+                alt="Luciano Cruz"
+                width={200}
+                height={200}
+                class="rounded-full border-4 border-blue-500 shadow-lg"
+              />
+              <div class="flex-1 space-y-4">
+                <div>
+                  <h1 class="text-3xl font-bold text-white">Luciano Cruz</h1>
+                  <p class="text-xl text-gray-300">Fullstack Developer</p>
+                </div>
+                <p class="text-gray-300">
+                  I am currently studying for a Bachelor's degree in Computer
+                  Science, which has provided me with a solid foundation in
+                  programming, data structures and algorithms, analysis, and
+                  problem-solving skills. While I work as a Fullstack Developer,
+                  I have a slight preference for Backend Development.
+                  Additionally, I am expanding my knowledge by learning about
+                  Data Science and Artificial Intelligence.
+                </p>
+                <div class="flex space-x-4">
+                  {
+                    [
+                      {
+                        icon: Github,
+                        label: "GitHub",
+                        href: "https://github.com/LuchoCruz08",
+                      },
+                      {
+                        icon: Linkedin,
+                        label: "LinkedIn",
+                        href: "https://www.linkedin.com/in/lucianovcruz/",
+                      },
+                      {
+                        icon: Mail,
+                        label: "Email",
+                        href: "mailto:lucianovcruz2004@gmail.com",
+                      },
+                    ].map((social) => (
+                      <a
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-block"
+                      >
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="hover:bg-gray-700 transition-colors duration-300"
+                        >
+                          <social.icon className="h-5 w-5" />
+                          <span class="sr-only">{social.label}</span>
+                        </Button>
+                      </a>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      <section id="projects" class="scroll-mt-16">
+        <h2 class="text-3xl font-bold mb-8 text-center">Projects</h2>
+        <div class="grid gap-8 md:grid-cols-2">
+          {
+            projects.map((project) => (
+              <Card className="bg-gray-800 border-gray-700 overflow-hidden transition-transform duration-300 hover:scale-105">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  width={600}
+                  height={300}
+                  class="w-full h-48 object-cover"
+                />
+                <CardHeader>
+                  <CardTitle className="text-xl font-semibold text-white">
+                    {project.title}
+                  </CardTitle>
+                  <CardDescription className="text-gray-300">
+                    {project.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div class="flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <Badge
+                        variant="secondary"
+                        className="bg-blue-600 text-white"
+                      >
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                  <div class="flex space-x-4">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        class="inline-flex items-center text-blue-400 hover:underline"
+                      >
+                        <Github className="mr-2 h-4 w-4" />
+                        Github
+                      </a>
+                    )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        class="inline-flex items-center text-green-400 hover:underline"
+                      >
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          }
+        </div>
+      </section>
+
+      <section id="skills" class="scroll-mt-16">
+        <h2 class="text-3xl font-bold mb-8 text-center">Skills</h2>
+        <div class="flex flex-wrap justify-center gap-3">
+          {
+            skills.map((skill) => (
+              <Badge
+                variant="secondary"
+                className="bg-blue-600 text-white px-3 py-1 text-sm font-medium rounded-full transition-transform duration-300 hover:scale-110"
+              >
+                {skill}
+              </Badge>
+            ))
+          }
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-gray-800 py-6 mt-24">
+      <div class="container mx-auto px-6 text-center text-gray-400">
+        © 2024 Luciano Cruz. All rights reserved.
+      </div>
+    </footer>
+  </body>
+</html>
